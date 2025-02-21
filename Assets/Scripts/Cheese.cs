@@ -41,7 +41,7 @@ public class Cheese : MonoBehaviour
             LevelTxt.gameObject.SetActive(true);
             AudioManager.instance.PlaySFX(AudioManager.instance.levelCompleteSFX);
             StartCoroutine(DeactiveLevelTxt(1.0f));
-            StartCoroutine(ActivateLvlCompPanel(1.0f));
+            StartCoroutine(ActivateLvlCompPanel(1.5f));
         }
         
     }

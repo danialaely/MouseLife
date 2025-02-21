@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class CatAI : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CatAI : MonoBehaviour
     private NavMeshAgent agent;
 
     public GameObject retryPanel;
+    public GameObject BoomParticleEffect;
 
     private bool isChasing = false;
 
@@ -23,6 +25,7 @@ public class CatAI : MonoBehaviour
         agent.speed = patrolSpeed;
         GoToNextPatrolPoint();
         retryPanel.SetActive(false);
+        BoomParticleEffect.SetActive(false);
     }
 
     void Update()
@@ -87,7 +90,8 @@ public class CatAI : MonoBehaviour
         {
             Debug.Log("Level Failed!");
             AudioManager.instance.PlaySFX(AudioManager.instance.levelFailedSFX);
-            StartCoroutine(ActiveRetryPanel(1.0f));
+            BoomParticleEffect.SetActive(true);
+            StartCoroutine(ActiveRetryPanel(1.2f));
         }
     }
 
@@ -95,5 +99,10 @@ public class CatAI : MonoBehaviour
     {
         yield return new WaitForSeconds(del);
         retryPanel.SetActive(true);
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reloads the current scene
     }
 }
